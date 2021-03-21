@@ -1,47 +1,39 @@
-{% extends "base.html" %}
-
-{% block head %}
+{% extends "base.html" %} {% block head %}
 <title>TODO Flask</title>
-{% endblock %}
+{% endblock %} {% block body %}
 
-{% block body %}
-<div class="content">
-    <h1 align="center">TODO Flask</h1>
-    {% if tasks|length < 1%}
-    <h4 align="center">There are no tasks, create one</h4>
-    <form style="padding-bottom: 10px;" align="center" action="/" method="POST">
-        <h3 align="center">Add a task</h3>
-        <input type="text" name="content" id="content">
-        <input type="submit" value="Add Task">
-    </form>
+<main>
+  <h1>TODO Flask</h1>
 
+  <form action="/" method="POST">
+    <h3>Add a task</h3>
+    <input type="text" name="content" />
+    <button type="submit">Add Task</button>
+  </form>
 
-    {% else %}
-    <form style="padding-bottom: 10px;" align="center" action="/" method="POST">
-        <h3 align="center">Add a task</h3>
-        <input type="text" name="content" id="content">
-        <input type="submit" value="Add Task">
-    </form>
-    <hr class="solid">
-    
-    <table align="center">
-        <tr>
-            <th>Task &nbsp;&nbsp;</th>
-            <th>Added &nbsp;&nbsp;</th>
-            <th>Actions</th>            
-        </tr>
-        {% for task in tasks %}
-        <tr>
-            <td>{{ task.content }}&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td>{{ task.date_created.date() }}&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td style="padding-top: 5px; padding-bottom: 5px">
-                <a href="/delete/{{ task.id }}">Delete</a>
-                <br>
-                <a href="/update/{{ task.id }}">Update</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
-    {% endif %}
-</div>
+  {% if tasks|length < 1 %}
+  <h4>There are no tasks, create one</h4>
+
+  {% else %}
+  <hr class="solid" />
+
+  <table>
+    <tr style="width: 100%">
+      <th>Task &nbsp;&nbsp;</th>
+      <th>Time &nbsp;&nbsp;</th>
+      <th>Actions</th>
+    </tr>
+    {% for task in tasks %}
+    <tr style="width: 100%">
+      <td>{{ task.content }}&nbsp;&nbsp;&nbsp;&nbsp;</td>
+      <td>{{ task.date_created.date() }}&nbsp;&nbsp;&nbsp;&nbsp;</td>
+      <td>
+        <a href="/delete/{{ task.id }}">Delete</a>
+        <a href="/update/{{ task.id }}">Update</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% endif %}
+</main>
 {% endblock %}
